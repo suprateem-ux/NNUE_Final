@@ -1,4 +1,4 @@
-name: Build Polyglot Books
+name: Extract PGNs from Polyglot Books
 
 on:
   push:
@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  build-books:
+  extract-pgns:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -21,13 +21,17 @@ jobs:
         run: |
           pip install python-chess
 
-      - name: Generate BIN files
+      - name: Extract PGNs from BIN files
         run: |
-          python pgnfind.py
+          python pgnfind.py  # Replace with your actual script
 
-      - name: Upload BIN files as artifact
+      - name: Remove BIN files
+        run: |
+          rm -f *.bin
+
+      - name: Upload PGNs as artifact
         uses: actions/upload-artifact@v4
         with:
-          name: polyglot-books
+          name: extracted-pgns
           path: |
             *.pgn
