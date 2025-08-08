@@ -6,7 +6,7 @@ from chess.polyglot import open_reader
 import threading
 import time
 
-book_path = "engines/book2.bin"
+book_path = "engines/Book2.bin"
 output_pgn = "engines/OPTIMUS2502.pgn"
 MAX_DEPTH = 100
 LOG_INTERVAL = 160  # Log every 100 written games
