@@ -1,4 +1,4 @@
-name: Extract PGNs from Polyglot Books
+name: Extract PGNs from Polyglot BIN
 
 on:
   push:
@@ -8,6 +8,7 @@ on:
 jobs:
   extract-pgns:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
@@ -21,17 +22,23 @@ jobs:
         run: |
           pip install python-chess
 
-      - name: Extract PGNs from BIN files
+      - name: Check for BIN file
         run: |
-          python pgnfind.py  # Replace with your actual script
+          if [ ! -f engines/Book2.bin ]; then
+            echo "❌ Book2.bin not found in engines/"
+            exit 1
+          fi
 
-      - name: Remove BIN files
+      - name: Extract PGNs
         run: |
-          rm -f *.bin
+          python extract_pgn_from_bin.py
 
-      - name: Upload PGNs as artifact
+      - name: List generated files
+        run: ls -l engines/
+
+      - name: Upload PGN artifact (if exists)
+        if: success() && always()
         uses: actions/upload-artifact@v4
         with:
-          name: extracted-pgns
-          path: |
-            *.pgn
+          name: extracted-pgn
+          path: engines/OPTIMUS2502.pgn
