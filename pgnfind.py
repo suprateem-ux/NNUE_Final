@@ -6,10 +6,10 @@ from chess.polyglot import open_reader
 import threading
 import time
 
-book_path = "engines/OPTIMUS2502.bin"
+book_path = "engines/book2.bin"
 output_pgn = "engines/OPTIMUS2502.pgn"
 MAX_DEPTH = 100
-LOG_INTERVAL = 100  # Log every 100 written games
+LOG_INTERVAL = 160  # Log every 100 written games
 MAX_BRANCHES = 15    # Limit branches per position
 
 seen_fens = set()
