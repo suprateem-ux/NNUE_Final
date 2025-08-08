@@ -31,7 +31,7 @@ jobs:
 
       - name: Extract PGNs
         run: |
-          python extract_pgn_from_bin.py
+          python pgnfind.py
 
       - name: List generated files
         run: ls -l engines/
